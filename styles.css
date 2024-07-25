@@ -95,7 +95,7 @@ body {
     font-weight: bold;
 }
 
-.weather-info p#cityNotFound {
-    color: red;
-    font-weight: bold;
+.error-message {
+    color: #ff4d4d;
+    margin-bottom: 10px;
 }

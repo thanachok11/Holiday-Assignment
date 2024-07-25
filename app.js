@@ -1,7 +1,5 @@
-// app.js
 
 const apiKey = '6c18d58f6e36ba86485956c2ca5d2dd8'; // Replace with your actual API key
-
 async function showSuggestions(value) {
     const suggestions = document.getElementById('suggestions');
     suggestions.innerHTML = '';
@@ -41,8 +39,9 @@ async function getWeather() {
             if (response.status === 401) {
                 throw new Error('Unauthorized: Invalid API key');
             } else if (response.status === 404) {
-                document.getElementById('weatherData').innerHTML = '<p>City not found</p>';
-                throw new Error('City not found');
+                showError('City not found');
+                clearWeatherData();
+                return;
             } else {
                 throw new Error('Failed to fetch data');
             }
@@ -53,7 +52,18 @@ async function getWeather() {
         document.getElementById('temp').innerText = data.main.temp;
         document.getElementById('humidity').innerText = data.main.humidity;
         document.getElementById('windSpeed').innerText = data.wind.speed;
+        document.getElementById('error').innerText = ''; // Clear any previous error
     } catch (error) {
         console.error('Error fetching weather data:', error);
     }
+}
+
+function showError(message) {
+    const errorElement = document.getElementById('error');
+    errorElement.innerText = message;
+}
+function clearWeatherData() {
+    document.getElementById('temp').innerText = '';
+    document.getElementById('humidity').innerText = '';
+    document.getElementById('windSpeed').innerText = '';
 }
